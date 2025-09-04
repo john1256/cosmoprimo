@@ -31,6 +31,7 @@ wiggle', 'bbks'].
     
     References
     ----------
+    https://arxiv.org/abs/1502.01589v3
     """
     default_params = dict(h=0.6751, omega_cdm=0.1193, omega_b=0.02226 , Omega_k=0., sigma8=0.8150, k_pivot=0.05, n_s=0.9653, 
                           m_ncdm=[0.06], neutrino_hierarchy=None, T_ncdm_over_cmb=constants.TNCDM_OVER_CMB, N_eff=constants.NEFF, 
@@ -40,7 +41,7 @@ wiggle', 'bbks'].
 
 def UchuuPlanck2018(engine=None, extra_params=None, **params):
     """
-    Initialize :class:`Cosmology` based on Table 4 Planck2015 TT,TE,EE+lowP+lensing.
+    Initialize :class:`Cosmology` based on Table 2 Planck2018 TT,TE,EE+lowP+lensing+BAO.
     
     Parameters
     ----------
@@ -58,6 +59,9 @@ wiggle', 'bbks'].
     Returns
     -------
     cosmology : Cosmology
+    References
+    ----------
+    https://arxiv.org/abs/1807.06209
     """
     default_params = dict(h=0.6766, Omega_b=0.048975, Omega_k=0., sigma8=0.8102, k_pivot=0.05, n_s=0.9665, 
                           m_ncdm=[0.06], neutrino_hierarchy=None, T_ncdm_over_cmb=constants.TNCDM_OVER_CMB, N_eff=constants.NEFF, 
@@ -196,6 +200,12 @@ def AbacusSummit_params(name=None, filename=_AbacusSummit_params_filename, param
 
     params : list, default=['omega_b', 'omega_cdm', 'h', 'A_s', 'n_s', 'alpha_s', 'N_ur', 'omega_ncdm', 'omega_k', 'tau_reio', 'w0_fld', 'wa_fld']
         Optionally, list of parameters to read from.
+
+    Returns
+    -------
+    toret : dict or list of dict
+        If ``name`` is given, returns a dict with the cosmological parameters of following cosm.
+        If ``name`` is ``None``, returns a list of dict with the cosmological parameters of all cosm.
     """
     if name is not None:
         if not isinstance(name, str):
@@ -294,7 +304,8 @@ def AbacusSummit(name=0, engine='class', precision=None, extra_params=None, **pa
                         q_numstep_transition=250, transfer_neglect_delta_k_S_t0=100., transfer_neglect_delta_k_S_t1=100., transfer_neglect_delta_k_S_t2=100., transfer_neglect_delta_k_S_e=100., transfer_neglect_delta_k_V_t1=100.,
                         transfer_neglect_delta_k_V_t2=100., transfer_neglect_delta_k_V_e=100., transfer_neglect_delta_k_V_b=100., transfer_neglect_delta_k_T_t2=100., transfer_neglect_delta_k_T_e=100., transfer_neglect_delta_k_T_b=100.,
                         neglect_CMB_sources_below_visibility=1.e-30, transfer_neglect_late_source=3000., halofit_k_per_decade=3000., l_switch_limber=40., accurate_lensing=1, num_mu_minus_lmax=1000., delta_l_max=1000.)
-            for name in ['recfast_Nz0', 'tol_perturb_integration', 'perturb_sampling_stepsize']: prec.pop(name)  # these do not exist anymore
+            for name in ['recfast_Nz0', 'tol_perturb_integration', 'perturb_sampling_stepsize']:
+                prec.pop(name)  # these do not exist anymore
             default_extra_params.update(prec)
     extra_params = {**default_extra_params, **(extra_params or {})}
     cosmo = Cosmology(engine=engine, extra_params=extra_params, **default_params)
