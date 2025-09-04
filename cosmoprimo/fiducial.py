@@ -28,6 +28,9 @@ wiggle', 'bbks'].
     Returns
     -------
     cosmology : Cosmology
+    
+    References
+    ----------
     """
     default_params = dict(h=0.6751, omega_cdm=0.1193, omega_b=0.02226 , Omega_k=0., sigma8=0.8150, k_pivot=0.05, n_s=0.9653, 
                           m_ncdm=[0.06], neutrino_hierarchy=None, T_ncdm_over_cmb=constants.TNCDM_OVER_CMB, N_eff=constants.NEFF, 
